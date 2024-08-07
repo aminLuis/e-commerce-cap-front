@@ -7,45 +7,45 @@
     <table mat-table [dataSource]="dataSource" matSort>
   
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Producto </th>
-        <td mat-cell *matCellDef="let row"> {{row.product.name}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
       </ng-container>
   
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
-        <td mat-cell *matCellDef="let row"> {{row.product.description}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.description}} </td>
       </ng-container>
   
-      <ng-container matColumnDef="customer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
-        <td mat-cell *matCellDef="let row"> {{row.order.customer.name}} </td>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+        <td mat-cell *matCellDef="let row"> {{row.price}} </td>
       </ng-container>
   
-      <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección cliente </th>
-        <td mat-cell *matCellDef="let row"> {{row.order.customer.address}} </td>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </th>
+        <td mat-cell *matCellDef="let row"> {{row.category.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="share">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
         <td mat-cell *matCellDef="let row"> 
-        
-            <button (click)="getDataTable(row)" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button (click)="openModal()" mat-menu-item>
-                  <mat-icon>local_shipping</mat-icon>
-                  <span>Generar orden</span>
-                </button>
-              </mat-menu>
-            
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="createInventory(row)" mat-menu-item>
+              <mat-icon>inventory</mat-icon>
+              <span>Inventario</span>
+            </button>
+          </mat-menu>
+          
         </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
+      <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
       </tr>
@@ -55,3 +55,4 @@
   </div>
   
   
+

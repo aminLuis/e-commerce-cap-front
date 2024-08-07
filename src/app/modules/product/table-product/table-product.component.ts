@@ -59,7 +59,6 @@ export class TableProductComponent implements OnInit, AfterViewInit {
       this.dataSource = new MatTableDataSource(this.products);
       this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-      console.log(this.products);
     });
   }
 

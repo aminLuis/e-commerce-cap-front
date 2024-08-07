@@ -51,13 +51,20 @@ export class GenerateOrderComponent implements OnInit{
    }
 
    public sendForm(): void {
-    this.formOrder.value['product'] = this.data.product;
-    this.formOrder.value['order'] = this.data.order;
-    console.log(this.formOrder.value);
-    this.orderService.save(this.formOrder.value).subscribe((res) => {
-      console.log('ressss', res);
-    });
+    if(this.formOrder.valid){
+      this.formOrder.value['product'] = this.data.product;
+      this.formOrder.value['order'] = this.data.order;
+      console.log(this.formOrder.value);
+      this.orderService.save(this.formOrder.value).subscribe((res) => {
+        this.closeDialog();
+        alert('Registro creado con exito !!');
+      });
+     }
    }
+   
 
+   public closeDialog(): void {
+    this.dialog.closeAll();
+   }
 
 }

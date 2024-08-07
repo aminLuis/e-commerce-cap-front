@@ -63,6 +63,7 @@ export class FormProductComponent implements OnInit {
     if(this.formProduct.valid) {
       this.productService.save(this.formProduct.value).subscribe((res) => {
        this.closeModal();
+       alert('Registro creado con exito !!');
       })
     }
   }

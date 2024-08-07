@@ -18,5 +18,16 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'e-commerce-cap-front';
+  title = 'E-commerce';
+
+  public sesion: boolean = false;
+
+  receivedData: string = 'false';
+
+  receiveData(data: string) {
+    this.receivedData = data;
+    if(data=='true') {
+      this.sesion = true;
+    }
+  }
 }

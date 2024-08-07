@@ -64,6 +64,7 @@ export class EditProductComponent implements OnInit{
     console.log(this.formProduct.value);
     this.productService.update(this.formProduct.value).subscribe((res) => {
       this.closeModal();
+      alert('Registro actualizado con exito !!');
     });
   }
 

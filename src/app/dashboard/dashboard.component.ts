@@ -41,8 +41,12 @@ export class DashboardComponent {
       this.router.navigate(['/products']);
     }
 
-    public navigateOrders(): void{
+    public navigateOrders(): void {
       this.router.navigate(['/orders']);
+    }
+
+    public navigateInventory(): void {
+      this.router.navigate(['/inventory']);
     }
 
 }

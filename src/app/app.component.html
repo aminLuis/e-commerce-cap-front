@@ -1,7 +1,8 @@
 <div>
-    @if(false) {<app-login></app-login> }
+    @if(!sesion) {<app-login
+        (sesion)="receiveData($event)"></app-login> }
 </div>
 
 <div>
-    @if(true){ <app-dashboard></app-dashboard>}
+    @if(sesion){ <app-dashboard></app-dashboard>}
 </div>
