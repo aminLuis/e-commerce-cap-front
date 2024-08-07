@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Dialog with elements</h2>
+<mat-dialog-content>
+
+    <form [formGroup]="formOrder" (ngSubmit)="sendForm()">
+        <div class="form">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Producto</mat-label>
+                <input type="text" formControlName="product" matInput readonly="true">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Id Orden</mat-label>
+                <input type="text" formControlName="order" matInput value="{{data.order.id}}" readonly="true">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Cantidad</mat-label>
+                <input type="text" formControlName="quantity" matInput>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Precio</mat-label>
+                <input type="text" formControlName="price" matInput>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary">Guardar</button>
+        </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
+
+

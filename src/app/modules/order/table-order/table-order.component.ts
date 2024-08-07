@@ -12,10 +12,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { EditProductComponent } from '../edit-product/edit-product.component';
+import { OrderServiceService } from '../../../services/order-service.service';
+import { OrderItem } from '../../../interfaces/order.interface';
+import { GenerateOrderComponent } from '../generate-order/generate-order.component';
 
 @Component({
-  selector: 'app-table-product',
+  selector: 'app-table-order',
   standalone: true,
   imports: [MatFormFieldModule, 
     MatInputModule,
@@ -26,41 +28,28 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
     MatIconModule,
     MatButtonModule
   ],
-  templateUrl: './table-product.component.html',
-  styleUrl: './table-product.component.scss'
+  templateUrl: './table-order.component.html',
+  styleUrl: './table-order.component.scss'
 })
-export class TableProductComponent implements OnInit, AfterViewInit {
-
-  public displayedColumns: string[] = ['name', 'description', 'price', 'category', 'share'];
-  public dataSource!: MatTableDataSource<ProductResponse>;
-  public products: ProductResponse[] = [];
-  public subscription: any;
-  public dataSend!: ProductResponse;
+export class TableOrderComponent implements OnInit {
+  public displayedColumns: string[] = ['name', 'description', 'customer', 'address', 'share'];
+  public dataSource!: MatTableDataSource<OrderItem>;
+  public orders: OrderItem[] = [];
+  public dataSend!: OrderItem;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private productService: ProductServiceService, private dialog: MatDialog) { }
+  constructor(private orderService: OrderServiceService,
+    private dialog: MatDialog
+  ) {
+    this.dataSource = new MatTableDataSource(this.orders);
+  }
 
   ngOnInit(): void {
-    this.getProducts(); 
-    this.subscription = this.productService.reload.subscribe(()=>{
-      this.getProducts();
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.getProducts(); 
-  }
-
-  public getProducts(): void {
-    this.productService.getAll().subscribe((res)=>{
-      this.products = res;
-      this.dataSource = new MatTableDataSource(this.products);
-      this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-      console.log(this.products);
-    });
+    this.getOrders();
   }
 
   applyFilter(event: Event) {
@@ -72,17 +61,23 @@ export class TableProductComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public getDataTable(data: ProductResponse): void{
-    if(data != null){
-      this.dataSend = data;
-    }
+  public getOrders(): void {
+    this.orderService.getAll().subscribe((res) => {
+      this.orders = res;
+      this.dataSource = new MatTableDataSource(this.orders);
+      console.log(this.orders);
+    });
   }
 
-  public openDialog(): void {
-    this.dialog.open(EditProductComponent, {
-       width: '35rem' ,
-       data: this.dataSend
-      });
+  public getDataTable(data: OrderItem){
+    this.dataSend = data;
+  }
+
+  public openModal(): void {
+    this.dialog.open(GenerateOrderComponent,{
+      width: '35rem',
+      data: this.dataSend
+    });
   }
 
 }

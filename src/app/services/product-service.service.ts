@@ -31,8 +31,22 @@ export class ProductServiceService {
   }
 
   public save(product: ProductRequest): Observable<ProductResponse> {
-    const url = API_PRODUCT+"/save"
+    const url = API_PRODUCT+"/save";
     return this.http.post<ProductResponse>(url, product)
+    .pipe(
+      tap(()=>{
+        this.refresh.next();
+      }),
+      catchError(error=>{
+        console.log(error);
+        return throwError(error);
+      })
+    );
+  }
+
+  public update(product: ProductRequest): Observable<ProductResponse> {
+    const url = API_PRODUCT+"/update/"+product.id;
+    return this.http.put<ProductResponse>(url, product)
     .pipe(
       tap(()=>{
         this.refresh.next();

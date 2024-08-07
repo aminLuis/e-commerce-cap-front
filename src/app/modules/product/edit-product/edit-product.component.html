@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Dialog with elements</h2>
+<mat-dialog-content>
+
+    <form [formGroup]="formProduct" (ngSubmit)="sendForm()">
+        <div class="form">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input type="text" formControlName="name" matInput [(ngModel)]="data.name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input type="text" formControlName="description" matInput [(ngModel)]="data.description">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Precio</mat-label>
+                <input type="text" formControlName="price" matInput [(ngModel)]="data.price" >
+            </mat-form-field>
+
+            <div class="select-edit">
+                <select class="select-edit">
+                    <option value="">{{data.category.name}}</option>
+                    @for (category of categories; track category){
+                        <option [value]="category">{{category.name}}</option>
+                    }
+                </select>
+            </div>
+
+            <button mat-raised-button color="primary">Guardar</button>
+        </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
+
+

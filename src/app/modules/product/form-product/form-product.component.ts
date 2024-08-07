@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogActions, MatDialogContent, MatDialogClose, MatDialogTitle } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Category } from '../../../interfaces/product.interface';
 import { ProductServiceService } from '../../../services/product-service.service';
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-product',
@@ -36,7 +32,9 @@ export class FormProductComponent implements OnInit {
   public formProduct!: FormGroup;
   public subscription: any;
 
-  constructor(private form: FormBuilder, private productService: ProductServiceService){}
+  constructor(private form: FormBuilder, 
+    private productService: ProductServiceService,
+    private dialog: MatDialog ){}
 
   ngOnInit(): void {
       this.initForm();
@@ -58,17 +56,19 @@ export class FormProductComponent implements OnInit {
   public getCategories(): void{
     this.productService.getCategory().subscribe((res)=>{
       this.categories = res;
-      console.log(this.categories);
     })
   }
 
   public sendFormProduct(): void {
     if(this.formProduct.valid) {
       this.productService.save(this.formProduct.value).subscribe((res) => {
-        console.log(res);
+       this.closeModal();
       })
     }
-    console.log(this.formProduct.value);
+  }
+
+  public closeModal(): void {
+    this.dialog.closeAll();
   }
 
 }
